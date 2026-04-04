@@ -11,14 +11,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Prog7313appUpdated">
-            <activity android:name=".LoginActivity"
-                android:exported="true">
-                <intent-filter>
-                    <action android:name="android.intent.action.MAIN" />
-                    <category android:name="android.intent.category.LAUNCHER" />
-                </intent-filter>
 
+        <activity
+            android:name=".LoginActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
+
+        <activity android:name=".MainActivity"/>
+        <activity android:name=".CategoryActivity"/>
+        <activity android:name=".AddExpenseActivity"/>
+        <activity android:name=".ViewExpensesActivity"/>
+        <activity android:name=".SetGoalsActivity"/>
+        <activity android:name=".CategoryTotalsActivity"/>
+
     </application>
 
 </manifest>

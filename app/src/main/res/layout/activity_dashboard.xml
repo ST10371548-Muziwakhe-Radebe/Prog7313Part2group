@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <TextView
+        android:id="@+id/tvWelcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome!"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="24dp"/>
+
+    <Button
+        android:id="@+id/btnCategories"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Manage Categories"
+        android:layout_marginBottom="12dp"/>
+
+    <Button
+        android:id="@+id/btnAddExpense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Expense"
+        android:layout_marginBottom="12dp"/>
+
+    <Button
+        android:id="@+id/btnViewExpenses"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="View Expenses"
+        android:layout_marginBottom="12dp"/>
+
+    <Button
+        android:id="@+id/btnSetGoals"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Set Budget Goals"
+        android:layout_marginBottom="12dp"/>
+
+    <Button
+        android:id="@+id/btnCategoryTotals"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="View Category Totals"/>
+
+</LinearLayout>
