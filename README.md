@@ -21,9 +21,9 @@ The app helps users track their spending habits and savings goals.
 
 ## Team Members
 - Member 1 (ST10371548): Core Infrastructure & Authentication
-- Member 2 (ST10XXXXXX): Categories, Entries & Photo Feature
-- Member 3 (ST10XXXXXX): Goals, Reports & Period Views
-- Member 4 (ST10XXXXXX): UI/UX & Demo Video
+- Member 2 (ST10440606): Categories, Entries & Photo Feature
+- Member 3 (ST10440322): Goals, Reports & Period Views
+- Member 4 (ST10377293): UI/UX & Demo Video
 
 ## Demo Video
 Link coming soon...
