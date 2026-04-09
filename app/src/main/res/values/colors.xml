@@ -12,4 +12,17 @@
     <color name="circle_grey">#E0E5EC</color>
     <color name="achievement_yellow">#F9D423</color>
     <color name="achievement_orange">#FF4E50</color>
+    
+    <!-- Financial Goals Colors -->
+    <color name="budget_orange_light">#FDEFEB</color>
+    <color name="budget_orange">#F26C2A</color>
+    <color name="budget_score_bg">#FDF6E3</color>
+    <color name="badge_green_light">#E9F6ED</color>
+    <color name="badge_green_text">#2E8B57</color>
+    <color name="button_green">#27AE60</color>
+    <color name="icon_bg_blue">#DCE9F6</color>
+    <color name="icon_bg_orange">#FEEFE5</color>
+    <color name="icon_bg_grey">#F1F3F5</color>
+    <color name="icon_bg_purple">#EAE1FC</color>
+    <color name="icon_bg_pink">#FEECEE</color>
 </resources>

@@ -43,6 +43,8 @@ class SignupActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            val hashedPassword = com.example.prog7313appupdated.utils.EncryptionUtils.hashPassword(password)
+
             lifecycleScope.launch {
                 val db = AppDatabase.getDatabase(applicationContext)
                 val existingUser = db.userDao().getUserByUsername(username)
@@ -53,8 +55,9 @@ class SignupActivity : AppCompatActivity() {
                     }
                 } else {
                     val newUser = User(
+                        userId = 0,
                         username = username,
-                        password = password,
+                        password = hashedPassword,
                         firstName = firstName,
                         lastName = lastName
                     )

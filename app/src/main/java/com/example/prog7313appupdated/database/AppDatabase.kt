@@ -18,7 +18,7 @@ private const val TAG = "AppDatabase"
 // Define the database with all entities and version number
 @Database(
     entities = [User::class, Category::class, ExpenseEntry::class],
-    version = 2,
+    version = 4,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {

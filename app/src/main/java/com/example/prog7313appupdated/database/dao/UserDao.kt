@@ -22,4 +22,7 @@ interface UserDao {
 
     @Query("SELECT * FROM users WHERE userId = :userId LIMIT 1")
     suspend fun getUserById(userId: Int): User?
+
+    @Query("UPDATE users SET minBudgetGoal = :minBudget, maxBudgetGoal = :maxBudget WHERE userId = :userId")
+    suspend fun updateUserBudgets(userId: Int, minBudget: Double, maxBudget: Double)
 }

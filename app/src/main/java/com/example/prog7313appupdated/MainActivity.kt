@@ -54,16 +54,40 @@ class MainActivity : AppCompatActivity() {
         // 3. Setup UI components
         val tvWelcome = findViewById<TextView>(R.id.tvWelcome)
 
+        // UI will be loaded in onResume so it updates when coming back from other screens
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (userId != -1) {
+            refreshDashboardData()
+        }
+    }
+
+    private fun refreshDashboardData() {
         lifecycleScope.launch {
             try {
                 val db = AppDatabase.getDatabase(applicationContext)
                 val user = db.userDao().getUserById(userId)
 
                 user?.let {
+                    // Update Welcome text
                     val displayName = if (it.firstName.isNotEmpty()) it.firstName else it.username
-                    tvWelcome?.text = "Hello, $displayName! 👋"
+                    findViewById<TextView>(R.id.tvWelcome)?.text = "Hello, $displayName! 👋"
+
+                    // Update Budget UI
+                    val maxGoal = it.maxBudgetGoal
+                    findViewById<TextView>(R.id.tvMonthlyBudgetGoal)?.text = "OF R${maxGoal.toInt()}"
+
+                    // Note: Mocking spent expenses for now until date queries are fully implemented
+                    val totalSpent = 0.0
+                    findViewById<TextView>(R.id.tvMonthlyBudget)?.text = "R${totalSpent.toInt()}"
+                    
+                    val remaining = maxGoal - totalSpent
+                    findViewById<TextView>(R.id.tvMonthText)?.text = "You have R${remaining.toInt()} left for the month."
+
                 } ?: run {
-                    tvWelcome?.text = "Hello! 👋"
+                    findViewById<TextView>(R.id.tvWelcome)?.text = "Hello! 👋"
                 }
             } catch (e: Exception) {
                 android.util.Log.e(TAG, "Database error: ${e.message}")
@@ -104,6 +128,15 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.nav_stats -> {
                     // TODO: Navigate to StatsActivity when created
+                }
+                R.id.nav_logout -> {
+                    // Clear the remember me state
+                    val sharedPreferences = getSharedPreferences("MoneyGoalsPrefs", android.content.Context.MODE_PRIVATE)
+                    sharedPreferences.edit().clear().apply()
+
+                    // Return to login screen
+                    startActivity(Intent(this, LoginActivity::class.java))
+                    finish()
                 }
             }
             drawerLayout?.closeDrawer(GravityCompat.START)

@@ -15,4 +15,7 @@ interface CategoryDao {
 
     @Query("DELETE FROM categories WHERE categoryId = :categoryId")
     suspend fun deleteCategory(categoryId: Int)
+
+    @Query("UPDATE categories SET isLimitActive = :isActive, limitAmount = :amount WHERE categoryId = :categoryId")
+    suspend fun updateCategoryLimit(categoryId: Int, isActive: Boolean, amount: Double)
 }

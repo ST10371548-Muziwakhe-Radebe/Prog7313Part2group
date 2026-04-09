@@ -63,9 +63,11 @@ class LoginActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            val hashedPassword = com.example.prog7313appupdated.utils.EncryptionUtils.hashPassword(password)
+
             lifecycleScope.launch {
                 val db = AppDatabase.getDatabase(applicationContext)
-                val user = db.userDao().login(username, password)
+                val user = db.userDao().login(username, hashedPassword)
 
                 if (user != null) {
                     if (cbRememberMe.isChecked) {

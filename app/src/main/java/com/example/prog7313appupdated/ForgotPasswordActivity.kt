@@ -34,12 +34,14 @@ class ForgotPasswordActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            val hashedNewPassword = com.example.prog7313appupdated.utils.EncryptionUtils.hashPassword(newPassword)
+
             lifecycleScope.launch {
                 val db = AppDatabase.getDatabase(applicationContext)
                 val user = db.userDao().getUserByUsername(username)
 
                 if (user != null) {
-                    val updatedUser = user.copy(password = newPassword)
+                    val updatedUser = user.copy(password = hashedNewPassword)
                     db.userDao().updateUser(updatedUser)
                     runOnUiThread {
                         Toast.makeText(this@ForgotPasswordActivity, "Password updated successfully!", Toast.LENGTH_SHORT).show()
