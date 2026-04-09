@@ -134,8 +134,10 @@ class MainActivity : AppCompatActivity() {
                     val sharedPreferences = getSharedPreferences("MoneyGoalsPrefs", android.content.Context.MODE_PRIVATE)
                     sharedPreferences.edit().clear().apply()
 
-                    // Return to login screen
-                    startActivity(Intent(this, LoginActivity::class.java))
+                    // Return to login screen and clear activity stack
+                    val logoutIntent = Intent(this, LoginActivity::class.java)
+                    logoutIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(logoutIntent)
                     finish()
                 }
             }
