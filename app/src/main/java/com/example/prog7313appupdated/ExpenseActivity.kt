@@ -3,7 +3,7 @@ package com.example.prog7313appupdated
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
-class AddExpenseActivity : AppCompatActivity() {
+class ExpenseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_expense)

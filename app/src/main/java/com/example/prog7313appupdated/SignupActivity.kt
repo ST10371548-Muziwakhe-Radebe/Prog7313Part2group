@@ -14,6 +14,8 @@ import kotlinx.coroutines.launch
 class SignupActivity : AppCompatActivity() {
 
     private val TAG = "SignupActivity"
+    private lateinit var etFirstName: EditText
+    private lateinit var etLastName: EditText
     private lateinit var etUsername: EditText
     private lateinit var etPassword: EditText
     private lateinit var btnSignup: Button
@@ -23,16 +25,20 @@ class SignupActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup)
 
+        etFirstName = findViewById(R.id.etFirstName)
+        etLastName = findViewById(R.id.etLastName)
         etUsername = findViewById(R.id.etSignupUsername)
         etPassword = findViewById(R.id.etSignupPassword)
         btnSignup = findViewById(R.id.btnSignup)
         btnBackToLogin = findViewById(R.id.btnBackToLogin)
 
         btnSignup.setOnClickListener {
+            val firstName = etFirstName.text.toString().trim()
+            val lastName = etLastName.text.toString().trim()
             val username = etUsername.text.toString().trim()
             val password = etPassword.text.toString().trim()
 
-            if (username.isEmpty() || password.isEmpty()) {
+            if (firstName.isEmpty() || lastName.isEmpty() || username.isEmpty() || password.isEmpty()) {
                 Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
@@ -46,8 +52,14 @@ class SignupActivity : AppCompatActivity() {
                         Toast.makeText(this@SignupActivity, "Username already exists", Toast.LENGTH_SHORT).show()
                     }
                 } else {
-                    db.userDao().insertUser(User(username = username, password = password))
-                    Log.d(TAG, "New user registered: $username")
+                    val newUser = User(
+                        username = username,
+                        password = password,
+                        firstName = firstName,
+                        lastName = lastName
+                    )
+                    db.userDao().insertUser(newUser)
+                    Log.d(TAG, "New user registered: $username ($firstName $lastName)")
                     runOnUiThread {
                         Toast.makeText(this@SignupActivity, "Registration successful! Please login.", Toast.LENGTH_SHORT).show()
                         finish()

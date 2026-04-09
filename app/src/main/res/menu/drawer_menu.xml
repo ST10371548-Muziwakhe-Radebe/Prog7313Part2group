@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home"
+            android:title="Home" />
+    </group>
+
+    <item android:title="Finance">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_add_expense"
+                    android:icon="@drawable/ic_add"
+                    android:title="Expenses" />
+
+                <item
+                    android:id="@+id/nav_spending"
+                    android:icon="@drawable/ic_wallet_logo"
+                    android:title="Spending" />
+
+                <item
+                    android:id="@+id/nav_budgets"
+                    android:icon="@drawable/ic_budgets"
+                    android:title="Budgets" />
+                <item
+                    android:id="@+id/nav_goals"
+                    android:icon="@drawable/ic_goals"
+                    android:title="Goals" />
+            </group>
+        </menu>
+    </item>
+
+    <item android:title="Insights">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_stats"
+                    android:icon="@drawable/ic_stats"
+                    android:title="Stats" />
+            </group>
+        </menu>
+    </item>
+
+</menu>

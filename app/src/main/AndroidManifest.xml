@@ -25,7 +25,7 @@
         <activity android:name=".ForgotPasswordActivity"/>
         <activity android:name=".MainActivity"/>
         <activity android:name=".CategoryActivity"/>
-        <activity android:name=".AddExpenseActivity"/>
+        <activity android:name=".ExpenseActivity"/>
         <activity android:name=".ViewExpensesActivity"/>
         <activity android:name=".SetGoalsActivity"/>
         <activity android:name=".CategoryTotalsActivity"/>

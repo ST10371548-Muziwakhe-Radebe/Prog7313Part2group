@@ -18,7 +18,7 @@ private const val TAG = "AppDatabase"
 // Define the database with all entities and version number
 @Database(
     entities = [User::class, Category::class, ExpenseEntry::class],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -43,7 +43,9 @@ abstract class AppDatabase : RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     "budget_tracker_db" // Database file name
-                ).build()
+                )
+                    .fallbackToDestructiveMigration() // Allows Room to destructive recreate database tables if migrations are missing
+                    .build()
 
                 INSTANCE = instance
                 Log.d(TAG, "Database instance created successfully")

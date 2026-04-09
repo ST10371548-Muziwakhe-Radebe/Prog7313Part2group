@@ -9,7 +9,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="80dp"
+        android:paddingBottom="24dp"
         android:clipToPadding="false">
 
         <LinearLayout
@@ -30,11 +30,12 @@
                     android:orientation="horizontal">
 
                     <ImageView
+                        android:id="@+id/btnMenu"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
-                        android:background="@drawable/bg_logo"
+                        android:background="?attr/selectableItemBackgroundBorderless"
                         android:padding="6dp"
-                        android:src="@drawable/ic_wallet_logo" />
+                        android:src="@drawable/ic_menu" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -78,6 +79,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/tvMonthText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -133,6 +135,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/tvMonthlyBudget"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="R2,260"
@@ -141,6 +144,7 @@
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/tvMonthlyBudgetGoal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="OF R3,500"
@@ -149,6 +153,7 @@
                     </LinearLayout>
 
                     <TextView
+                        android:id="@+id/tvMonthlyBudgetRemaining"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
@@ -188,6 +193,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/tvStreakText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="14-Day Streak"
@@ -196,6 +202,7 @@
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/tvStreakMessage"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Keep it up, you're on fire!"
@@ -244,28 +251,14 @@
                     android:textStyle="bold" />
             </RelativeLayout>
 
-            <LinearLayout
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvAchievements"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:orientation="horizontal">
-
-                <LinearLayout style="@style/AchievementItem">
-                    <ImageView style="@style/AchievementIcon" android:src="@drawable/ic_saver" />
-                    <TextView style="@style/AchievementText" android:text="Saver Starter" />
-                </LinearLayout>
-
-                <LinearLayout style="@style/AchievementItem">
-                    <ImageView style="@style/AchievementIcon" android:src="@drawable/ic_fire" />
-                    <TextView style="@style/AchievementText" android:text="Trick Streak" />
-                </LinearLayout>
-
-                <LinearLayout style="@style/AchievementItem">
-                    <ImageView style="@style/AchievementIcon" android:src="@drawable/ic_wallet_logo" />
-                    <TextView style="@style/AchievementText" android:text="Budget King" />
-                </LinearLayout>
-            </LinearLayout>
-
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:overScrollMode="never" />
             <!-- Insights -->
             <TextView
                 android:layout_width="wrap_content"
@@ -326,24 +319,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="24dp"
-        android:layout_marginBottom="100dp"
         android:backgroundTint="@color/brand_orange"
         android:src="@drawable/ic_add"
         app:tint="@color/white"
         app:fabSize="normal"
         app:borderWidth="0dp"
         app:elevation="8dp"/>
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_gravity="bottom"
-        android:background="@color/white"
-        app:elevation="16dp"
-        app:menu="@menu/bottom_nav_menu"
-        app:itemIconTint="@color/brand_orange"
-        app:itemTextColor="@color/text_secondary"
-        app:labelVisibilityMode="labeled" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
