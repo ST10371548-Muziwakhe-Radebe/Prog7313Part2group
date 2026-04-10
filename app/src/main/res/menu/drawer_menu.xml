@@ -29,6 +29,11 @@
                     android:id="@+id/nav_goals"
                     android:icon="@drawable/ic_goals"
                     android:title="Goals" />
+                <item
+                    android:id="@+id/nav_category"
+                    android:icon="@drawable/ic_add"
+                    android:title="Categories" />
+
             </group>
         </menu>
     </item>

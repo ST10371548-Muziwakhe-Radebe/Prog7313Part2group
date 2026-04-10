@@ -48,7 +48,7 @@ class ExpenseActivity : AppCompatActivity() {
                 holder.itemView.findViewById<TextView>(R.id.tvTransactionTitle).text = tx.title
                 holder.itemView.findViewById<TextView>(R.id.tvTransactionSubtitle).text = tx.subtitle
                 holder.itemView.findViewById<TextView>(R.id.tvTransactionAmount).text = tx.amount
-                
+
                 val ivIcon = holder.itemView.findViewById<ImageView>(R.id.ivTransactionIcon)
                 ivIcon.setImageResource(tx.iconRes)
                 // Use a generic circle background with a custom tint based on design colors

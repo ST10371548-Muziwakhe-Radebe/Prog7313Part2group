@@ -72,7 +72,7 @@ class MainActivity : AppCompatActivity() {
 
         // 4. Floating Action Button
         findViewById<FloatingActionButton>(R.id.btnAddExpense)?.setOnClickListener {
-            val intent = Intent(this, ExpenseActivity::class.java)
+            val intent = Intent(this, AddExpenseActivity::class.java)
             intent.putExtra("userId", userId)
             startActivity(intent)
         }
@@ -101,6 +101,9 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.nav_goals -> {
                     startActivity(Intent(this, SetGoalsActivity::class.java).apply { putExtra("userId", userId) })
+                }
+                R.id.nav_category -> {
+                    startActivity(Intent(this, CategoryActivity::class.java).apply { putExtra("userId", userId) })
                 }
                 R.id.nav_stats -> {
                     // TODO: Navigate to StatsActivity when created
