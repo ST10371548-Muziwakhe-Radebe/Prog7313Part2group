@@ -4,7 +4,6 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
@@ -27,6 +26,10 @@ class ExpenseActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_expense)
 
+
+        val userId = intent.getIntExtra("userId", -1)
+        android.util.Log.d("ExpenseActivity", "Loaded with userId: $userId")
+
         val transactions = listOf(
             Transaction("Supermarket", "Groceries • Oct 28", "-R450.00", "#4A90E2", android.R.drawable.ic_menu_agenda),
             Transaction("Gas Station", "Transport • Oct 25", "-R800.00", "#F5A623", android.R.drawable.ic_menu_compass),
@@ -39,7 +42,8 @@ class ExpenseActivity : AppCompatActivity() {
         rv.layoutManager = LinearLayoutManager(this)
         rv.adapter = object : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-                val view = LayoutInflater.from(parent.context).inflate(R.layout.item_transaction, parent, false)
+                val view = LayoutInflater.from(parent.context).inflate(
+                    R.layout.item_transaction, parent, false)
                 return object : RecyclerView.ViewHolder(view) {}
             }
 
@@ -48,18 +52,21 @@ class ExpenseActivity : AppCompatActivity() {
                 holder.itemView.findViewById<TextView>(R.id.tvTransactionTitle).text = tx.title
                 holder.itemView.findViewById<TextView>(R.id.tvTransactionSubtitle).text = tx.subtitle
                 holder.itemView.findViewById<TextView>(R.id.tvTransactionAmount).text = tx.amount
-
                 val ivIcon = holder.itemView.findViewById<ImageView>(R.id.ivTransactionIcon)
                 ivIcon.setImageResource(tx.iconRes)
-                // Use a generic circle background with a custom tint based on design colors
-                ivIcon.backgroundTintList = android.content.res.ColorStateList.valueOf(Color.parseColor(tx.color))
+                ivIcon.backgroundTintList = android.content.res.ColorStateList.valueOf(
+                    Color.parseColor(tx.color))
             }
 
             override fun getItemCount() = transactions.size
         }
 
+
         findViewById<FloatingActionButton>(R.id.btnAddExpense)?.setOnClickListener {
-            startActivity(Intent(this, AddExpenseActivity::class.java))
+            android.util.Log.d("ExpenseActivity", "Opening AddExpense with userId: $userId")
+            val intent = Intent(this, AddExpenseActivity::class.java)
+            intent.putExtra("userId", userId)
+            startActivity(intent)
         }
     }
 }

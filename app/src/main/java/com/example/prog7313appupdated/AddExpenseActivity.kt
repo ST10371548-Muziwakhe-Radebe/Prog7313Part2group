@@ -39,7 +39,7 @@ class AddExpenseActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_expense)
 
-        userId = intent.getIntExtra("userId", -1)
+       val userId = intent.getIntExtra("userId", -1)
         android.util.Log.d("AddExpenseActivity", "Loaded with userId: $userId")
 
         val db = AppDatabase.getDatabase(this)
@@ -85,24 +85,35 @@ class AddExpenseActivity : AppCompatActivity() {
         }
 
         // ── LOAD CATEGORIES ──────────────────────────────────────────
-        lifecycleScope.launch {
-            categories = db.categoryDao().getCategoriesByUser(userId)
-            val names = categories.map { it.name }
-            runOnUiThread {
-                if (names.isEmpty()) {
-                    Toast.makeText(
+        fun loadCategories() {
+            lifecycleScope.launch {
+                android.util.Log.d("AddExpenseActivity", "Loading categories for userId: $userId")
+                categories = db.categoryDao().getCategoriesByUser(userId)
+                android.util.Log.d("AddExpenseActivity", "Found ${categories.size} categories")
+                val names = categories.map { it.name }
+                runOnUiThread {
+                    if (names.isEmpty()) {
+                        android.util.Log.w("AddExpenseActivity", "No categories found for userId: $userId")
+                        Toast.makeText(
+                            this@AddExpenseActivity,
+                            "No categories found! Please create one first.",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    } else {
+                        android.util.Log.d("AddExpenseActivity", "Categories loaded: $names")
+                    }
+                    val adapter = ArrayAdapter(
                         this@AddExpenseActivity,
-                        "Please create a category first!",
-                        Toast.LENGTH_LONG
-                    ).show()
+                        android.R.layout.simple_spinner_dropdown_item,
+                        names
+                    )
+                    spinnerCategory.adapter = adapter
+                    adapter.notifyDataSetChanged()
                 }
-                spinnerCategory.adapter = ArrayAdapter(
-                    this@AddExpenseActivity,
-                    android.R.layout.simple_spinner_dropdown_item,
-                    names
-                )
             }
         }
+
+        loadCategories()
 
         // ── DATE PICKER ──────────────────────────────────────────────
         btnPickDate.setOnClickListener {
