@@ -7,12 +7,12 @@ import androidx.room.PrimaryKey
 data class ExpenseEntry(
     @PrimaryKey(autoGenerate = true)
     val entryId: Int = 0,
-    val amount: Double,
-    val date: String,
-    val startTime: String,
-    val endTime: String,
-    val description: String,
-    val categoryId: Int,
-    val userId: Int,
+    val amount: Double = 0.0,
+    val date: String = "",
+    val startTime: String = "",
+    val endTime: String = "",
+    val description: String = "",
+    val categoryId: Int = 0,
+    val userId: Int = 0,
     val photoPath: String? = null
 )

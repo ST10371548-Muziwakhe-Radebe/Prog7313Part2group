@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "456628769471",
+    "project_id": "moneygoals-app",
+    "storage_bucket": "moneygoals-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:456628769471:android:fedad504f87245c6c9ec0a",
+        "android_client_info": {
+          "package_name": "com.example.prog7313appupdated"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBq_0Chs69rOTCZGDuoswcOeVxplxFSqLA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

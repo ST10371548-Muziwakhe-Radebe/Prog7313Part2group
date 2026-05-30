@@ -7,7 +7,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.example.prog7313appupdated.database.AppDatabase
+import com.example.prog7313appupdated.database.FirebaseHelper
 import com.example.prog7313appupdated.database.entities.User
 import kotlinx.coroutines.launch
 
@@ -44,8 +44,7 @@ class SignupActivity : AppCompatActivity() {
             }
 
             lifecycleScope.launch {
-                val db = AppDatabase.getDatabase(applicationContext)
-                val existingUser = db.userDao().getUserByUsername(username)
+                val existingUser = FirebaseHelper.getUserByUsername(applicationContext, username)
 
                 if (existingUser != null) {
                     runOnUiThread {
@@ -58,7 +57,7 @@ class SignupActivity : AppCompatActivity() {
                         firstName = firstName,
                         lastName = lastName
                     )
-                    db.userDao().insertUser(newUser)
+                    FirebaseHelper.insertUser(applicationContext, newUser)
                     Log.d(TAG, "New user registered: $username ($firstName $lastName)")
                     runOnUiThread {
                         Toast.makeText(this@SignupActivity, "Registration successful! Please login.", Toast.LENGTH_SHORT).show()

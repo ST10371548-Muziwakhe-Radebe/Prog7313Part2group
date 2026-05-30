@@ -10,7 +10,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.example.prog7313appupdated.Adapter.AchievementAdapter
-import com.example.prog7313appupdated.database.AppDatabase
+import com.example.prog7313appupdated.database.FirebaseHelper
 import com.example.prog7313appupdated.database.entities.Achievement
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
@@ -56,8 +56,7 @@ class MainActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             try {
-                val db = AppDatabase.getDatabase(applicationContext)
-                val user = db.userDao().getUserById(userId)
+                val user = FirebaseHelper.getUserById(applicationContext, userId)
 
                 user?.let {
                     val displayName = if (it.firstName.isNotEmpty()) it.firstName else it.username
@@ -111,6 +110,46 @@ class MainActivity : AppCompatActivity() {
             }
             drawerLayout?.closeDrawer(GravityCompat.START)
             true
+        }
+
+        // 6. Database Switcher and Data Migration (Firebase)
+        val switchDatabaseMode = findViewById<androidx.appcompat.widget.SwitchCompat>(R.id.switchDatabaseMode)
+        val btnMigrateData = findViewById<android.widget.Button>(R.id.btnMigrateData)
+
+        // Set initial state of switch from preferences
+        switchDatabaseMode?.isChecked = FirebaseHelper.isFirebaseEnabled(this)
+
+        switchDatabaseMode?.setOnCheckedChangeListener { _, isChecked ->
+            FirebaseHelper.setDatabaseMode(this, isChecked)
+            val modeText = if (isChecked) "Online Firebase Database" else "Local Room Database"
+            android.widget.Toast.makeText(this, "Switched to $modeText", android.widget.Toast.LENGTH_SHORT).show()
+        }
+
+        btnMigrateData?.setOnClickListener {
+            // Disable button during migration to prevent double-clicks
+            btnMigrateData.isEnabled = false
+            btnMigrateData.text = "Migrating data..."
+            
+            lifecycleScope.launch {
+                val success = FirebaseHelper.migrateRoomToFirebase(applicationContext, userId)
+                runOnUiThread {
+                    btnMigrateData.isEnabled = true
+                    btnMigrateData.text = "Migrate Local Data to Firebase"
+                    if (success) {
+                        android.widget.Toast.makeText(
+                            this@MainActivity,
+                            "Migration successful! Data is stored in Firebase Realtime Database.",
+                            android.widget.Toast.LENGTH_LONG
+                        ).show()
+                    } else {
+                        android.widget.Toast.makeText(
+                            this@MainActivity,
+                            "Migration failed! Please check your network connection and Firebase rules.",
+                            android.widget.Toast.LENGTH_LONG
+                        ).show()
+                    }
+                }
+            }
         }
     }
 }

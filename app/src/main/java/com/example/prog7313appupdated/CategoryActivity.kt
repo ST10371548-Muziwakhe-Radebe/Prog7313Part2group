@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.example.prog7313appupdated.database.AppDatabase
+import com.example.prog7313appupdated.database.FirebaseHelper
 import com.example.prog7313appupdated.database.entities.Category
 import kotlinx.coroutines.launch
 
@@ -17,7 +17,6 @@ class CategoryActivity : AppCompatActivity() {
 
         userId = intent.getIntExtra("userId", -1)
 
-        val db = AppDatabase.getDatabase(this)
         val etCategoryName = findViewById<EditText>(R.id.etCategoryName)
         val btnSaveCategory = findViewById<Button>(R.id.btnSaveCategory)
         val lvCategories = findViewById<ListView>(R.id.lvCategories)
@@ -34,7 +33,7 @@ class CategoryActivity : AppCompatActivity() {
         // Load and display existing categories
         fun loadCategories() {
             lifecycleScope.launch {
-                val categories = db.categoryDao().getCategoriesByUser(userId)
+                val categories = FirebaseHelper.getCategoriesByUser(this@CategoryActivity, userId)
                 val displayNames = categories.map { "${it.name} (${it.color})" }
                 runOnUiThread {
                     lvCategories.adapter = ArrayAdapter(
@@ -65,7 +64,7 @@ class CategoryActivity : AppCompatActivity() {
                     userId = userId,
                     color = selectedColor
                 )
-                db.categoryDao().insertCategory(category)
+                FirebaseHelper.insertCategory(this@CategoryActivity, category)
                 android.util.Log.d(
                     "CategoryActivity",
                     "Category saved: $name, color: $selectedColor, userId: $userId"

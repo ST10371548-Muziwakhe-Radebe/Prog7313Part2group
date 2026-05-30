@@ -6,7 +6,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.example.prog7313appupdated.database.AppDatabase
+import com.example.prog7313appupdated.database.FirebaseHelper
 import kotlinx.coroutines.launch
 
 class ForgotPasswordActivity : AppCompatActivity() {
@@ -35,12 +35,11 @@ class ForgotPasswordActivity : AppCompatActivity() {
             }
 
             lifecycleScope.launch {
-                val db = AppDatabase.getDatabase(applicationContext)
-                val user = db.userDao().getUserByUsername(username)
+                val user = FirebaseHelper.getUserByUsername(applicationContext, username)
 
                 if (user != null) {
                     val updatedUser = user.copy(password = newPassword)
-                    db.userDao().updateUser(updatedUser)
+                    FirebaseHelper.updateUser(applicationContext, updatedUser)
                     runOnUiThread {
                         Toast.makeText(this@ForgotPasswordActivity, "Password updated successfully!", Toast.LENGTH_SHORT).show()
                         finish()

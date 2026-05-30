@@ -12,7 +12,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.example.prog7313appupdated.database.AppDatabase
+import com.example.prog7313appupdated.database.FirebaseHelper
 import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
@@ -64,8 +64,7 @@ class LoginActivity : AppCompatActivity() {
             }
 
             lifecycleScope.launch {
-                val db = AppDatabase.getDatabase(applicationContext)
-                val user = db.userDao().login(username, password)
+                val user = FirebaseHelper.login(applicationContext, username, password)
 
                 if (user != null) {
                     if (cbRememberMe.isChecked) {

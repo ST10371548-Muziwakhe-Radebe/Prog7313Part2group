@@ -14,6 +14,9 @@ interface ExpenseEntryDao {
     @Query("SELECT * FROM entries WHERE userId = :userId AND date BETWEEN :startDate AND :endDate")
     suspend fun getEntriesByPeriod(userId: Int, startDate: String, endDate: String): List<ExpenseEntry>
 
+    @Query("SELECT * FROM entries WHERE userId = :userId")
+    suspend fun getAllEntriesByUser(userId: Int): List<ExpenseEntry>
+
     @Query("SELECT categoryId, SUM(amount) as total FROM entries WHERE userId = :userId AND date BETWEEN :startDate AND :endDate GROUP BY categoryId")
     suspend fun getCategoryTotals(userId: Int, startDate: String, endDate: String): List<CategoryTotal>
 }

@@ -18,7 +18,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.lifecycle.lifecycleScope
-import com.example.prog7313appupdated.database.AppDatabase
+import com.example.prog7313appupdated.database.FirebaseHelper
 import com.example.prog7313appupdated.database.entities.Category
 import com.example.prog7313appupdated.database.entities.ExpenseEntry
 import kotlinx.coroutines.launch
@@ -41,8 +41,6 @@ class AddExpenseActivity : AppCompatActivity() {
 
        val userId = intent.getIntExtra("userId", -1)
         android.util.Log.d("AddExpenseActivity", "Loaded with userId: $userId")
-
-        val db = AppDatabase.getDatabase(this)
 
         val etDescription = findViewById<EditText>(R.id.etDescription)
         val etAmount = findViewById<EditText>(R.id.etExpenseAmount)
@@ -88,7 +86,7 @@ class AddExpenseActivity : AppCompatActivity() {
         fun loadCategories() {
             lifecycleScope.launch {
                 android.util.Log.d("AddExpenseActivity", "Loading categories for userId: $userId")
-                categories = db.categoryDao().getCategoriesByUser(userId)
+                categories = FirebaseHelper.getCategoriesByUser(this@AddExpenseActivity, userId)
                 android.util.Log.d("AddExpenseActivity", "Found ${categories.size} categories")
                 val names = categories.map { it.name }
                 runOnUiThread {
@@ -220,7 +218,7 @@ class AddExpenseActivity : AppCompatActivity() {
                     userId = userId,
                     photoPath = photoUri?.toString()
                 )
-                db.expenseEntryDao().insertEntry(entry)
+                FirebaseHelper.insertEntry(this@AddExpenseActivity, entry)
                 android.util.Log.d(
                     "AddExpenseActivity",
                     "Entry saved — desc: $description, amount: $amountText, " +
